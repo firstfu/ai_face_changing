@@ -1,3 +1,21 @@
+/**
+ * 主頁面組件 (Home Page Component)
+ * 
+ * 這是應用程式的主要入口頁面，展示 AI 換臉服務的完整內容：
+ * - Hero 區塊：吸引使用者的主要視覺與介紹
+ * - 功能特色：展示專業 AI 換臉的核心功能
+ * - 案例展示：各行業使用案例與效果對比
+ * - 客戶見證：建立信賴感的真實評價
+ * - 實際操作：整合 FaceSwapForm 和 ResultDisplay 組件
+ * - 價格方案：不同等級的訂閱選項
+ * 
+ * 使用技術：
+ * - Next.js 15 頁面組件
+ * - Tailwind CSS 響應式設計
+ * - Lucide React 圖標系統
+ * - shadcn/ui 組件庫
+ */
+
 import { Video, Image, Zap, Users, Shield, Clock, Trophy, TrendingUp, Award, Star, CheckCircle, ArrowRight, Play, BarChart3 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';

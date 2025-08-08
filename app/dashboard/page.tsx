@@ -1,3 +1,29 @@
+/**
+ * 用戶儀表板頁面 (User Dashboard Page)
+ * 
+ * 登入用戶的主控台，提供完整的帳戶管理與服務使用介面：
+ * - 用戶歡迎區塊與基本資訊顯示
+ * - 訂閱方案狀態與使用量統計
+ * - 月使用量進度條與限制提醒
+ * - 整合換臉工具與結果展示
+ * - 帳戶創建日期與會員資訊
+ * - 升級方案建議與快速操作按鈕
+ * 
+ * 功能特色：
+ * - 即時使用量監控與視覺化
+ * - 智能使用量警告 (80% 以上顯示提醒)
+ * - 方案差異化的 UI 顯示
+ * - 企業版特殊標識 (Crown 圖標)
+ * - 響應式設計適配各種螢幕
+ * 
+ * 使用技術：
+ * - Next.js 15 Server Components
+ * - Prisma ORM 資料庫查詢
+ * - NextAuth.js 身份驗證
+ * - 動態方案限制管理
+ * - Progress 組件視覺化
+ */
+
 import { redirect } from 'next/navigation';
 import { auth } from '@/auth';
 import { prisma } from '@/lib/prisma';

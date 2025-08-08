@@ -1,3 +1,34 @@
+/**
+ * 結果展示組件 (Result Display Component)
+ * 
+ * 換臉結果的完整展示與管理界面：
+ * - 狀態展示：成功/失敗/處理中的視覺化狀態
+ * - 圖片對比：原始、目標、結果的三欄式對比展示
+ * - 下載功能：高清圖片下載與檔名自動生成
+ * - 分享功能：原生分享 API 與剪貼簿整合
+ * - 詳細資訊：模型資訊、處理時間、品質設定
+ * 
+ * 用戶體驗設計：
+ * - 魔法主題的視覺設計 (✨ Sparkles, 🏆 Trophy)
+ * - 漸層背景與陰影效果
+ * - 處理中的動態載入動畫
+ * - 成功狀態的慶祝效果
+ * - 失敗狀態的錯誤資訊展示
+ * 
+ * 技術整合：
+ * - Zustand 狀態管理
+ * - Web Share API 支援
+ * - Clipboard API 整合
+ * - File 下載處理
+ * - 響應式圖片展示
+ * 
+ * 使用技術：
+ * - React 19 Client Component
+ * - Web APIs (Share, Clipboard, URL)
+ * - Tailwind CSS 動畫與漸層
+ * - 條件渲染與狀態管理
+ */
+
 'use client';
 
 import { useState } from 'react';

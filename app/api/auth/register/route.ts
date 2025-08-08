@@ -1,3 +1,33 @@
+/**
+ * 用戶註冊 API 路由 (User Registration API Route)
+ * 
+ * 處理新用戶註冊流程：
+ * - 使用 Zod 進行表單資料驗證
+ * - 檢查電子郵件是否已被註冊
+ * - 使用 bcrypt 進行密碼加密處理
+ * - 建立新用戶記錄於資料庫
+ * - 自動為新用戶創建免費訂閱方案
+ * - 返回新用戶基本資訊 (不含敏感資料)
+ * 
+ * API 端點：POST /api/auth/register
+ * 
+ * 請求資料結構：
+ * - name: 用戶姓名 (至少 1 個字元)
+ * - email: 有效電子郵件地址
+ * - password: 密碼 (至少 6 個字元)
+ * 
+ * 安全措施：
+ * - bcrypt 密碼雜湊 (salt rounds: 12)
+ * - 重複註冊檢查
+ * - 輸入資料驗證與清理
+ * 
+ * 使用技術：
+ * - Next.js 15 API Routes
+ * - Prisma ORM
+ * - Zod 資料驗證
+ * - bcryptjs 密碼加密
+ */
+
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import bcrypt from 'bcryptjs';

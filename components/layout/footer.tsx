@@ -1,3 +1,34 @@
+/**
+ * 網站頁尾組件 (Footer Component)
+ * 
+ * 網站底部的資訊整合與連結導航區域：
+ * - 品牌資訊：Logo、描述、特色徽章展示
+ * - 產品功能：核心功能列表與連結
+ * - 企業服務：API文檔、技術支援、商業方案
+ * - 聯絡資訊：郵箱、電話、地址等完整聯絡方式
+ * - 法律連結：服務條款、隱私政策、API條款
+ * 
+ * 資訊架構設計：
+ * - 四欄式網格布局 (響應式調整)
+ * - 視覺階層清晰的資訊分組
+ * - 互動式連結與懸停效果
+ * - 企業級專業形象展示
+ * - 信任指標與認證徽章
+ * 
+ * 用戶體驗：
+ * - 清楚的資訊分類
+ * - 易於掃描的視覺設計
+ * - 品牌一致性維持
+ * - 聯絡方式多元化
+ * - 法律合規資訊完整
+ * 
+ * 使用技術：
+ * - React Server Component
+ * - Lucide React 圖標系統
+ * - Tailwind CSS 響應式設計
+ * - shadcn/ui Badge 與 Separator
+ */
+
 import { Video, Zap, Shield, Award, Users, Mail, Phone, MapPin } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';

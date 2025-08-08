@@ -1,3 +1,37 @@
+/**
+ * Replicate AI 服務封裝 (Replicate AI Service Wrapper)
+ * 
+ * 封裝 Replicate API 的核心服務類別，提供換臉 AI 模型整合：
+ * - 預測任務建立：支援多種換臉模型的任務創建
+ * - 狀態查詢：即時監控 AI 處理進度與結果
+ * - 任務管理：支援任務取消與錯誤處理
+ * - 模型版本管理：動態選擇最新或指定版本
+ * - 型別安全：完整的 TypeScript 型別定義
+ * 
+ * 支援的 AI 模型：
+ * - easel/advanced-face-swap: 高品質專業級換臉
+ * - codeplugtech/face-swap: 經濟實惠標準換臉
+ * - arabyai-replicate/roop_face_swap: 影片換臉支援
+ * 
+ * 資料流程：
+ * 1. 接收 base64 或 URL 格式的圖片
+ * 2. 建立 Replicate 預測任務
+ * 3. 輪詢查詢處理狀態
+ * 4. 返回處理結果或錯誤資訊
+ * 
+ * 錯誤處理：
+ * - API token 驗證
+ * - 網路請求錯誤捕捉
+ * - 模型版本不存在處理
+ * - 友善錯誤訊息包裝
+ * 
+ * 使用技術：
+ * - Replicate Node.js SDK
+ * - TypeScript 嚴格型別檢查
+ * - 環境變數配置管理
+ * - Promise-based 非同步處理
+ */
+
 import Replicate from 'replicate';
 import { ReplicatePredict } from '@/types';
 

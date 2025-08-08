@@ -1,3 +1,43 @@
+/**
+ * 換臉功能狀態管理 (Face Swap State Management)
+ * 
+ * 使用 Zustand 管理換臉應用的全域狀態：
+ * - 圖片管理：來源與目標圖片的上傳與預覽
+ * - 處理狀態：載入、進度、錯誤的即時追蹤
+ * - 結果管理：當前結果與歷史記錄的維護
+ * - 用戶資料：使用量與訂閱狀態的同步
+ * - 持久化儲存：關鍵資料的本地儲存
+ * 
+ * 核心功能：
+ * - 圖片上傳與預覽生成 (URL.createObjectURL)
+ * - API 請求的完整生命周期管理
+ * - 輪詢機制追蹤 AI 處理進度
+ * - 錯誤處理與用戶友善訊息
+ * - 使用量限制檢查與提醒
+ * 
+ * 狀態結構：
+ * - 處理狀態：isLoading, progress, error
+ * - 圖片資料：sourceImage, targetImage, previews
+ * - 結果資料：currentSwap, swapHistory
+ * - 用戶資料：userUsage, userSubscription
+ * 
+ * 非同步操作：
+ * - startSwap: 啟動換臉處理
+ * - checkSwapStatus: 輪詢處理狀態 (最多60次)
+ * - fetchUserData: 獲取用戶資料
+ * 
+ * 持久化策略：
+ * - 儲存歷史記錄與用戶資料
+ * - 排除暫時性狀態 (isLoading, progress)
+ * - 使用 localStorage 本地儲存
+ * 
+ * 使用技術：
+ * - Zustand 狀態管理
+ * - TypeScript 完整型別
+ * - Web APIs (URL, FormData, fetch)
+ * - 輪詢機制與超時處理
+ */
+
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import { SwapResult, SwapRequest } from '@/types';

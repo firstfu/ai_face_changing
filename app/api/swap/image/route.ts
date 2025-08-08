@@ -1,3 +1,25 @@
+/**
+ * 換臉 API 路由 (Face Swap API Route)
+ * 
+ * 處理用戶的圖片換臉請求：
+ * - 驗證用戶身份與登入狀態
+ * - 檢查訂閱方案與使用量限制
+ * - 接收 FormData 格式的來源與目標圖片
+ * - 根據品質選擇對應的 AI 模型
+ * - 將圖片轉換為 base64 格式傳送給 Replicate
+ * - 建立預測任務並記錄使用量
+ * - 返回預測 ID 供後續狀態查詢
+ * 
+ * API 端點：POST /api/swap/image
+ * 
+ * 使用技術：
+ * - Next.js 15 App Router API 路由
+ * - NextAuth.js 身份驗證
+ * - Replicate API 整合
+ * - 使用量追蹤系統
+ * - FormData 檔案處理
+ */
+
 import { NextRequest, NextResponse } from 'next/server';
 import { auth } from '@/auth';
 import { ReplicateService } from '@/lib/replicate';

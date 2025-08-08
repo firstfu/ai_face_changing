@@ -1,3 +1,28 @@
+/**
+ * 換臉表單主組件 (Face Swap Form Component)
+ * 
+ * 這是換臉功能的核心界面組件，提供完整的用戶操作流程：
+ * - 品質選擇：專業級/標準品質雙選項，含詳細特性說明
+ * - 圖片上傳：整合 ImageUpload 組件，支援來源與目標圖片
+ * - 進度顯示：即時處理進度條與狀態回饋
+ * - 錯誤處理：友善的錯誤訊息與重試機制
+ * - 響應式設計：適配桌面與行動裝置
+ * 
+ * 功能特色：
+ * - 視覺化品質比較卡片 (推薦 vs 經濟方案)
+ * - Zustand 狀態管理整合
+ * - 動畫與互動效果 (hover, scale, ring effects)
+ * - 處理中的動態 UI 回饋
+ * - 智能表單驗證 (需同時上傳兩張圖片)
+ * 
+ * 使用技術：
+ * - React 19 Client Component
+ * - Zustand 全域狀態管理
+ * - Lucide React 圖標系統
+ * - Tailwind CSS 動畫與漸層
+ * - shadcn/ui 組件系統
+ */
+
 'use client';
 
 import { useState } from 'react';

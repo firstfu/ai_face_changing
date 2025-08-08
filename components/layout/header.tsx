@@ -1,3 +1,34 @@
+/**
+ * 網站標頭組件 (Header Component)
+ * 
+ * 應用程式的主要導航與品牌展示區域：
+ * - 品牌識別：Logo、名稱、標語的視覺化呈現
+ * - 導航功能：產品功能、工作流程、定價的快速連結
+ * - 用戶狀態：登入/登出、個人選單、會話管理
+ * - 信任指標：用戶數量統計、社會證明徽章
+ * - 響應式設計：桌面與行動裝置適配
+ * 
+ * 用戶體驗特色：
+ * - 毛玻璃背景效果 (backdrop-blur)
+ * - 黏性頂部定位 (sticky header)
+ * - 懸停動畫效果 (下劃線動畫)
+ * - 用戶頭像與漸層效果
+ * - 載入狀態的骨架屏
+ * 
+ * 功能整合：
+ * - NextAuth.js 會話管理
+ * - 動態導航狀態
+ * - 下拉式用戶選單
+ * - 響應式漢堡選單 (行動裝置)
+ * 
+ * 使用技術：
+ * - Next.js Link 路由
+ * - NextAuth.js useSession Hook
+ * - shadcn/ui Dropdown 組件
+ * - Tailwind CSS 漸層與動畫
+ * - Lucide React 圖標系統
+ */
+
 'use client';
 
 import { Video, TrendingUp, Users, Menu, LogOut, Settings, User } from 'lucide-react';

@@ -1,3 +1,34 @@
+/**
+ * 圖片上傳組件 (Image Upload Component)
+ * 
+ * 提供完整的圖片上傳功能與用戶體驗：
+ * - 拖放上傳：支援拖拽檔案到指定區域
+ * - 點擊上傳：傳統檔案選擇器整合
+ * - 即時預覽：上傳後立即顯示圖片預覽
+ * - 檔案驗證：格式、大小、類型的全面驗證
+ * - 錯誤處理：友善的錯誤訊息與視覺回饋
+ * 
+ * 交互特色：
+ * - 拖拽時的視覺狀態變化 (hover effects)
+ * - 漸層色彩與動畫效果
+ * - emoji 表情符號增加親和力
+ * - 響應式設計與無障礙支持
+ * - 可重複使用的通用組件設計
+ * 
+ * 技術特性：
+ * - TypeScript 完整型別定義
+ * - useCallback 性能優化
+ * - URL.createObjectURL 預覽處理
+ * - 檔案大小與格式驗證
+ * - 支援 JPEG、PNG、WebP 格式
+ * 
+ * 使用技術：
+ * - React 19 Hooks
+ * - File API 與拖放 API
+ * - Tailwind CSS 漸層與動畫
+ * - Lucide React 圖標
+ */
+
 'use client';
 
 import { useState, useRef, useCallback } from 'react';

@@ -1,3 +1,42 @@
+/**
+ * 使用量追蹤服務 (Usage Tracking Service)
+ * 
+ * 管理用戶服務使用量的核心追蹤系統：
+ * - 使用量記錄：按月追蹤用戶服務使用次數
+ * - 限制檢查：根據訂閱方案驗證使用權限
+ * - 統計分析：提供月度與年度使用統計資料
+ * - 方案管理：整合訂閱方案的使用限制
+ * - 數據完整性：使用 Prisma ORM 確保資料一致性
+ * 
+ * 核心功能：
+ * - trackUsage: 記錄服務使用 (支援批量遞增)
+ * - getCurrentUsage: 查詢當月使用量
+ * - checkUsageLimit: 驗證用戶使用權限
+ * - getUserUsageStats: 生成完整使用統計
+ * 
+ * 訂閱方案限制：
+ * - FREE: 3次/月
+ * - CREATOR: 50次/月
+ * - PRO: 250次/月
+ * - ENTERPRISE: 2000次/月
+ * 
+ * 資料結構：
+ * - 複合主鍵：userId + type + month + year
+ * - 原子操作：upsert 確保並發安全
+ * - 時間索引：按年月組織資料
+ * 
+ * 錯誤處理：
+ * - 資料庫連線錯誤
+ * - 方案不存在的預設處理
+ * - 友善的錯誤回應
+ * 
+ * 使用技術：
+ * - Prisma ORM
+ * - TypeScript 嚴格型別
+ * - 資料庫 upsert 操作
+ * - 日期時間處理
+ */
+
 import { prisma } from '@/lib/prisma';
 
 export class UsageTracker {

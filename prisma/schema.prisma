@@ -13,101 +13,240 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+/// OAuth 帳戶模型 (OAuth Account Model)
+/// 
+/// 儲存第三方 OAuth 提供商的帳戶資訊，用於 NextAuth.js 整合：
+/// - 支援 Google、GitHub、Facebook 等 OAuth 登入
+/// - 管理 OAuth tokens 與 refresh tokens
+/// - 處理 token 過期與更新機制
+/// - 與 User 模型建立多對一關聯 (一個用戶可有多個 OAuth 帳戶)
+/// 
+/// 主要用途：
+/// - 社群登入整合 (Social Login)
+/// - OAuth 2.0 / OpenID Connect 支援
+/// - Token 管理與自動刷新
+/// - 帳戶連結與解除連結
 model Account {
-  id                String  @id @default(cuid())
-  userId            String
-  type              String
-  provider          String
-  providerAccountId String
-  refresh_token     String?
-  access_token      String?
-  expires_at        Int?
-  token_type        String?
-  scope             String?
-  id_token          String?
-  session_state     String?
+  id                String  @id @default(cuid())        /// 唯一識別碼
+  userId            String                               /// 關聯的用戶 ID
+  type              String                               /// 帳戶類型 (oauth, email, credentials)
+  provider          String                               /// OAuth 提供商 (google, github, facebook)
+  providerAccountId String                               /// 提供商的帳戶 ID
+  refresh_token     String?                              /// OAuth refresh token (用於更新 access token)
+  access_token      String?                              /// OAuth access token (API 存取令牌)
+  expires_at        Int?                                 /// Token 過期時間 (Unix timestamp)
+  token_type        String?                              /// Token 類型 (通常是 "Bearer")
+  scope             String?                              /// OAuth 授權範圍
+  id_token          String?                              /// OpenID Connect ID token
+  session_state     String?                              /// OAuth session 狀態
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  @@unique([provider, providerAccountId])
+  @@unique([provider, providerAccountId])                /// 複合唯一索引：同一提供商不能有重複帳戶
 }
 
+/// 用戶會話模型 (User Session Model)
+/// 
+/// 管理用戶登入會話的持久化狀態，NextAuth.js 的核心組件：
+/// - 儲存用戶登入會話資訊
+/// - 處理會話過期與自動登出
+/// - 支援跨設備的會話管理
+/// - 實現安全的會話追蹤機制
+/// 
+/// 主要用途：
+/// - 用戶登入狀態持久化
+/// - 會話安全與過期管理
+/// - 跨請求的身份驗證
+/// - 登出時的會話清理
 model Session {
-  id           String   @id @default(cuid())
-  sessionToken String   @unique
-  userId       String
-  expires      DateTime
+  id           String   @id @default(cuid())            /// 唯一識別碼
+  sessionToken String   @unique                         /// 唯一的會話令牌 (用於識別會話)
+  userId       String                                   /// 關聯的用戶 ID
+  expires      DateTime                                 /// 會話過期時間
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
+/// 用戶主模型 (User Master Model)
+/// 
+/// 應用程式的核心用戶實體，管理所有用戶相關資訊：
+/// - 基本用戶資料 (姓名、信箱、頭像)
+/// - 支援 OAuth 與密碼登入
+/// - 信箱驗證狀態管理
+/// - 與其他模型的中央關聯點
+/// 
+/// 關聯關係：
+/// - 一對多：多個 OAuth 帳戶 (Account)
+/// - 一對多：多個登入會話 (Session)
+/// - 一對一：訂閱方案 (Subscription)
+/// - 一對多：使用記錄 (UsageRecord)
+/// 
+/// 主要用途：
+/// - 用戶身份識別與認證
+/// - 個人資料管理
+/// - 訂閱與付費管理
+/// - 服務使用追蹤
 model User {
-  id            String    @id @default(cuid())
-  name          String?
-  email         String    @unique
-  password      String?
-  emailVerified DateTime?
-  image         String?
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
+  id            String    @id @default(cuid())          /// 唯一用戶識別碼
+  name          String?                                 /// 用戶姓名 (可選，支援匿名註冊)
+  email         String    @unique                       /// 電子信箱 (唯一，必填)
+  password      String?                                 /// 密碼雜湊 (OAuth 用戶可為空)
+  emailVerified DateTime?                               /// 信箱驗證時間 (null = 未驗證)
+  image         String?                                 /// 用戶頭像 URL
+  createdAt     DateTime  @default(now())               /// 帳戶建立時間
+  updatedAt     DateTime  @updatedAt                    /// 最後更新時間
   
-  accounts      Account[]
-  sessions      Session[]
-  subscription  Subscription?
-  usageRecords  UsageRecord[]
+  accounts      Account[]                               /// 關聯的 OAuth 帳戶
+  sessions      Session[]                               /// 用戶的登入會話
+  subscription  Subscription?                          /// 用戶的訂閱方案 (一對一)
+  usageRecords  UsageRecord[]                          /// 使用記錄
   
-  @@map("users")
+  @@map("users")                                        /// 資料表名稱對應
 }
 
+/// 驗證令牌模型 (Verification Token Model)
+/// 
+/// 用於信箱驗證與密碼重設的一次性令牌系統：
+/// - 信箱驗證流程的安全令牌
+/// - 密碼重設的臨時授權碼
+/// - 支援令牌過期與自動清理
+/// - 防止令牌重複使用的安全機制
+/// 
+/// 安全特性：
+/// - 一次性使用令牌
+/// - 時間限制防止濫用
+/// - 複合唯一索引防重複
+/// - 自動過期清理機制
+/// 
+/// 主要用途：
+/// - 新用戶信箱驗證
+/// - 忘記密碼重設流程
+/// - API 安全驗證
+/// - 短期授權碼發放
 model VerificationToken {
-  identifier String
-  token      String   @unique
-  expires    DateTime
+  identifier String                                      /// 識別碼 (通常是 email 或 user ID)
+  token      String   @unique                           /// 唯一驗證令牌
+  expires    DateTime                                   /// 令牌過期時間
 
-  @@unique([identifier, token])
+  @@unique([identifier, token])                        /// 複合唯一索引：防止同一識別碼的重複令牌
 }
 
+/// 訂閱方案模型 (Subscription Model)
+/// 
+/// 管理用戶的付費訂閱狀態與計費週期：
+/// - 訂閱方案等級管理 (免費/創作者/專業/企業)
+/// - 計費週期與自動續訂處理
+/// - ECPay 金流整合與交易追蹤
+/// - 方案升級/降級與取消管理
+/// 
+/// 訂閱方案階層：
+/// - FREE: 3次/月，免費使用
+/// - CREATOR: 50次/月，NT$ 890
+/// - PRO: 250次/月，NT$ 2,090
+/// - ENTERPRISE: 2000次/月，NT$ 9,090
+/// 
+/// 狀態管理：
+/// - ACTIVE: 正常使用中
+/// - CANCELED: 已取消 (期末停止)
+/// - PAST_DUE: 付款逾期
+/// - INCOMPLETE: 付款未完成
+/// 
+/// 主要用途：
+/// - 用戶付費等級管理
+/// - 使用量限制控制
+/// - 自動計費與續約
+/// - 金流交易記錄
 model Subscription {
-  id                String            @id @default(cuid())
-  userId            String            @unique
-  plan              SubscriptionPlan
-  status            SubscriptionStatus
-  currentPeriodStart DateTime
-  currentPeriodEnd   DateTime
-  cancelAtPeriodEnd Boolean           @default(false)
-  ecpayMerchantTradeNo String?
-  createdAt         DateTime          @default(now())
-  updatedAt         DateTime          @updatedAt
+  id                String            @id @default(cuid())    /// 唯一訂閱識別碼
+  userId            String            @unique                 /// 關聯用戶 ID (一對一關係)
+  plan              SubscriptionPlan                          /// 訂閱方案等級
+  status            SubscriptionStatus                        /// 訂閱狀態
+  currentPeriodStart DateTime                                /// 當前計費週期開始時間
+  currentPeriodEnd   DateTime                                /// 當前計費週期結束時間
+  cancelAtPeriodEnd Boolean           @default(false)        /// 是否在週期末取消
+  ecpayMerchantTradeNo String?                              /// ECPay 商戶交易編號
+  createdAt         DateTime          @default(now())        /// 訂閱建立時間
+  updatedAt         DateTime          @updatedAt              /// 最後更新時間
   
   user              User              @relation(fields: [userId], references: [id], onDelete: Cascade)
   
-  @@map("subscriptions")
+  @@map("subscriptions")                                     /// 資料表名稱對應
 }
 
+/// 使用記錄模型 (Usage Record Model)
+/// 
+/// 按月追蹤用戶服務使用量，支援多種服務類型的統計：
+/// - 月度使用量統計與分析
+/// - 支援多種服務類型 (face_swap, video_process 等)
+/// - 使用量限制檢查與控制
+/// - 歷史使用趨勢分析
+/// 
+/// 資料結構設計：
+/// - 複合主鍵確保每月每服務只有一筆記錄
+/// - count 欄位支援增量累加
+/// - 按年月分割提升查詢效能
+/// - 支援多種服務類型擴展
+/// 
+/// 使用場景：
+/// - 訂閱方案使用量控制
+/// - 用戶使用行為分析
+/// - 超量使用提醒與計費
+/// - 月度/年度報表生成
+/// 
+/// 主要用途：
+/// - 換臉服務使用量統計
+/// - 方案限制檢查與控制
+/// - 使用趨勢分析
+/// - 超量使用計費依據
 model UsageRecord {
-  id            String   @id @default(cuid())
-  userId        String
-  type          String   // "face_swap"
-  count         Int      @default(1)
-  month         Int      // 1-12
-  year          Int
-  createdAt     DateTime @default(now())
+  id            String   @id @default(cuid())            /// 唯一記錄識別碼
+  userId        String                                   /// 關聯用戶 ID
+  type          String                                   /// 服務類型 ("face_swap", "video_process" 等)
+  count         Int      @default(1)                     /// 使用次數 (支援累加)
+  month         Int                                      /// 月份 (1-12)
+  year          Int                                      /// 年份 (YYYY)
+  createdAt     DateTime @default(now())                 /// 記錄建立時間
   
   user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   
-  @@unique([userId, type, month, year])
-  @@map("usage_records")
+  @@unique([userId, type, month, year])                  /// 複合唯一索引：每用戶每月每服務類型一筆記錄
+  @@map("usage_records")                                 /// 資料表名稱對應
 }
 
+/// 訂閱方案等級列舉 (Subscription Plan Enum)
+/// 
+/// 定義可用的訂閱方案等級與對應權限：
+/// - 階層式方案設計，滿足不同用戶需求
+/// - 明確的使用量限制與功能差異
+/// - 支援免費試用與付費升級路徑
+/// - 企業級方案提供額外商業功能
+/// 
+/// 方案詳細說明：
+/// - FREE: 免費方案，3次/月，基礎功能
+/// - CREATOR: 創作者方案，50次/月，高清輸出
+/// - PRO: 專業方案，250次/月，4K輸出 + 專案管理
+/// - ENTERPRISE: 企業方案，2000次/月，API存取 + 團隊協作
 enum SubscriptionPlan {
-  FREE
-  CREATOR
-  PRO  
-  ENTERPRISE
+  FREE                                                   /// 免費方案 (3次/月)
+  CREATOR                                               /// 創作者方案 (50次/月，NT$ 890)
+  PRO                                                   /// 專業方案 (250次/月，NT$ 2,090)  
+  ENTERPRISE                                            /// 企業方案 (2000次/月，NT$ 9,090)
 }
 
+/// 訂閱狀態列舉 (Subscription Status Enum)
+/// 
+/// 定義訂閱的生命週期狀態，支援完整的計費管理：
+/// - 涵蓋正常使用到取消的完整流程
+/// - 支援付款失敗與逾期處理
+/// - 整合 ECPay 金流狀態回調
+/// - 自動化計費與狀態轉換
+/// 
+/// 狀態轉換流程：
+/// INCOMPLETE → ACTIVE → CANCELED
+///     ↓           ↓
+/// CANCELED    PAST_DUE → ACTIVE/CANCELED
 enum SubscriptionStatus {
-  ACTIVE
-  CANCELED
-  PAST_DUE
-  INCOMPLETE
+  ACTIVE                                                /// 正常使用中 (付款成功)
+  CANCELED                                              /// 已取消 (用戶主動取消或期末停止)
+  PAST_DUE                                              /// 付款逾期 (需要處理欠費)
+  INCOMPLETE                                            /// 付款未完成 (初次付款失敗)
 }

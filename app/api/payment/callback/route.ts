@@ -6,7 +6,7 @@ export async function POST(request: NextRequest) {
   try {
     // 獲取 ECPay 回調參數
     const formData = await request.formData();
-    const params: Record<string, any> = {};
+    const params: Record<string, string> = {};
     
     formData.forEach((value, key) => {
       params[key] = value.toString();

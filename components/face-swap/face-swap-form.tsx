@@ -56,8 +56,8 @@ export function FaceSwapForm() {
       <Card className="p-8 bg-white border-slate-200">
         <div className="space-y-6">
           <div className="text-center">
-            <h3 className="text-2xl font-bold text-slate-800">選擇處理方案</h3>
-            <p className="text-muted-foreground mt-2">根據您的使用需求選擇適合的處理品質</p>
+            <h3 className="text-2xl font-bold text-slate-800">選擇處理品質</h3>
+            <p className="text-muted-foreground mt-2">不同品質等級適合不同的使用場景</p>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -117,15 +117,9 @@ export function FaceSwapForm() {
                   </div>
                   
                   <div className="pt-4 space-y-2">
-                    <div className="flex items-center justify-between">
-                      <span className="text-2xl font-bold text-blue-600">
-                        ${REPLICATE_MODELS['easel/advanced-face-swap'].price}
-                      </span>
-                      <span className="text-sm text-muted-foreground">每次處理</span>
-                    </div>
                     {selectedQuality === 'high' && (
-                      <div className="text-xs text-green-600 font-medium">
-                        ✓ 已選擇此方案
+                      <div className="text-xs text-green-600 font-medium text-center">
+                        ✓ 已選擇此品質
                       </div>
                     )}
                   </div>
@@ -189,18 +183,9 @@ export function FaceSwapForm() {
                   </div>
                   
                   <div className="pt-4 space-y-2">
-                    <div className="flex items-center justify-between">
-                      <span className="text-2xl font-bold text-orange-600">
-                        ${REPLICATE_MODELS['codeplugtech/face-swap'].price}
-                      </span>
-                      <span className="text-sm text-muted-foreground">每次處理</span>
-                    </div>
-                    <div className="text-xs text-orange-600 font-medium">
-                      成本效益最佳選擇
-                    </div>
                     {selectedQuality === 'standard' && (
-                      <div className="text-xs text-green-600 font-medium">
-                        ✓ 已選擇此方案
+                      <div className="text-xs text-green-600 font-medium text-center">
+                        ✓ 已選擇此品質
                       </div>
                     )}
                   </div>

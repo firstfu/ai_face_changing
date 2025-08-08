@@ -64,13 +64,15 @@ export default function Home() {
               </div>
 
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button 
-                  size="lg" 
-                  className="text-lg px-10 py-6 bg-blue-600 hover:bg-blue-700 shadow-xl hover:shadow-2xl transition-all transform hover:-translate-y-1"
-                >
-                  <Video className="mr-2 h-5 w-5" />
-                  開始專業創作
-                </Button>
+                <a href="#workflow">
+                  <Button 
+                    size="lg" 
+                    className="text-lg px-10 py-6 bg-blue-600 hover:bg-blue-700 shadow-xl hover:shadow-2xl transition-all transform hover:-translate-y-1"
+                  >
+                    <Video className="mr-2 h-5 w-5" />
+                    開始專業創作
+                  </Button>
+                </a>
                 <Button 
                   size="lg" 
                   variant="outline" 
@@ -276,7 +278,7 @@ export default function Home() {
                     ))}
                   </div>
                   <p className="text-muted-foreground">
-                    "ContentSwap Pro的API整合非常順暢，讓我們的影片製作效率提升了80%，客戶滿意度大幅提高。"
+                    &quot;ContentSwap Pro的API整合非常順暢，讓我們的影片製作效率提升了80%，客戶滿意度大幅提高。&quot;
                   </p>
                   <div className="flex items-center gap-3">
                     <div className="w-10 h-10 rounded-full bg-gradient-to-r from-blue-400 to-orange-400" />
@@ -296,7 +298,7 @@ export default function Home() {
                     ))}
                   </div>
                   <p className="text-muted-foreground">
-                    "批量處理功能太棒了！我可以一次處理100張產品照片，大大節省了拍攝成本和時間。"
+                    &quot;批量處理功能太棒了！我可以一次處理100張產品照片，大大節省了拍攝成本和時間。&quot;
                   </p>
                   <div className="flex items-center gap-3">
                     <div className="w-10 h-10 rounded-full bg-gradient-to-r from-green-400 to-blue-400" />
@@ -316,7 +318,7 @@ export default function Home() {
                     ))}
                   </div>
                   <p className="text-muted-foreground">
-                    "企業級的安全性和穩定性讓我們很放心。團隊協作功能也很實用，專案管理變得更有序。"
+                    &quot;企業級的安全性和穩定性讓我們很放心。團隊協作功能也很實用，專案管理變得更有序。&quot;
                   </p>
                   <div className="flex items-center gap-3">
                     <div className="w-10 h-10 rounded-full bg-gradient-to-r from-purple-400 to-pink-400" />
@@ -352,7 +354,7 @@ export default function Home() {
         </section>
 
         {/* Main App Section */}
-        <section className="py-20">
+        <section id="workflow" className="py-20">
           <div className="container max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="space-y-8">
               <div className="text-center">
@@ -369,7 +371,7 @@ export default function Home() {
                 <div className="flex justify-center gap-4 mt-6 text-sm">
                   <div className="flex items-center gap-2">
                     <CheckCircle className="h-4 w-4 text-green-500" />
-                    <span>免費試用額度</span>
+                    <span>免費試用 3 次</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <CheckCircle className="h-4 w-4 text-green-500" />
@@ -380,6 +382,14 @@ export default function Home() {
                     <span>企業級安全</span>
                   </div>
                 </div>
+                <div className="mt-6">
+                  <p className="text-sm text-muted-foreground">
+                    需要更多處理次數？ 
+                    <a href="#pricing" className="text-blue-600 hover:text-blue-700 font-medium ml-1">
+                      查看訂閱方案 →
+                    </a>
+                  </p>
+                </div>
               </div>
 
               {/* 換臉表單 */}
@@ -387,6 +397,120 @@ export default function Home() {
               
               {/* 結果展示 */}
               <ResultDisplay />
+            </div>
+          </div>
+        </section>
+        {/* Pricing Section */}
+        <section id="pricing" className="py-20 bg-slate-50">
+          <div className="container max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-16">
+              <Badge className="mb-4 px-4 py-1.5 text-sm bg-blue-100 text-blue-700 border-blue-200">
+                <Trophy className="h-3 w-3 mr-1" />
+                訂閱方案
+              </Badge>
+              <h2 className="text-4xl sm:text-5xl font-bold mb-4 text-slate-800">
+                選擇適合您的專業方案
+              </h2>
+              <p className="text-muted-foreground text-xl max-w-2xl mx-auto mb-6">
+                從個人創作者到企業團隊，我們提供彈性的訂閱選項
+              </p>
+              <div className="bg-blue-100 border border-blue-200 rounded-lg p-4 max-w-3xl mx-auto">
+                <p className="text-blue-700 text-sm">
+                  <CheckCircle className="h-4 w-4 inline mr-2" />
+                  所有處理均包含在訂閱方案中，無需額外按次付費
+                </p>
+              </div>
+            </div>
+
+            {/* Pricing Cards */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+              {/* 免費版 */}
+              <Card className="p-8 bg-white shadow-lg hover:shadow-xl transition-shadow relative">
+                <div className="space-y-6">
+                  <div className="text-center">
+                    <h3 className="text-xl font-bold mb-2">免費試用</h3>
+                    <div className="text-3xl font-bold text-slate-800 mb-1">$0</div>
+                    <p className="text-sm text-muted-foreground">每月 3 次處理</p>
+                  </div>
+                  <ul className="space-y-3 text-sm">
+                    <li className="flex items-center gap-2">
+                      <CheckCircle className="h-4 w-4 text-green-500" />
+                      <span>標準品質輸出</span>
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <CheckCircle className="h-4 w-4 text-green-500" />
+                      <span>基本技術支援</span>
+                    </li>
+                  </ul>
+                  <Button className="w-full" variant="outline">開始免費試用</Button>
+                </div>
+              </Card>
+
+              {/* 專業版 */}
+              <Card className="p-8 bg-white shadow-lg hover:shadow-xl transition-shadow relative ring-2 ring-blue-500">
+                <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
+                  <Badge className="px-3 py-1 bg-blue-600 text-white">
+                    <Star className="h-3 w-3 mr-1" />
+                    最受歡迎
+                  </Badge>
+                </div>
+                <div className="space-y-6">
+                  <div className="text-center">
+                    <h3 className="text-xl font-bold mb-2">專業版</h3>
+                    <div className="text-3xl font-bold text-blue-600 mb-1">$49</div>
+                    <p className="text-sm text-muted-foreground">每月 200 次處理</p>
+                  </div>
+                  <ul className="space-y-3 text-sm">
+                    <li className="flex items-center gap-2">
+                      <CheckCircle className="h-4 w-4 text-green-500" />
+                      <span>4K 高品質輸出</span>
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <CheckCircle className="h-4 w-4 text-green-500" />
+                      <span>批量處理功能</span>
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <CheckCircle className="h-4 w-4 text-green-500" />
+                      <span>優先技術支援</span>
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <CheckCircle className="h-4 w-4 text-green-500" />
+                      <span>專案管理工具</span>
+                    </li>
+                  </ul>
+                  <Button className="w-full bg-blue-600 hover:bg-blue-700">立即升級</Button>
+                </div>
+              </Card>
+
+              {/* 企業版 */}
+              <Card className="p-8 bg-white shadow-lg hover:shadow-xl transition-shadow relative">
+                <div className="space-y-6">
+                  <div className="text-center">
+                    <h3 className="text-xl font-bold mb-2">企業版</h3>
+                    <div className="text-3xl font-bold text-slate-800 mb-1">$199</div>
+                    <p className="text-sm text-muted-foreground">無限制處理</p>
+                  </div>
+                  <ul className="space-y-3 text-sm">
+                    <li className="flex items-center gap-2">
+                      <CheckCircle className="h-4 w-4 text-green-500" />
+                      <span>所有專業版功能</span>
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <CheckCircle className="h-4 w-4 text-green-500" />
+                      <span>API 存取權限</span>
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <CheckCircle className="h-4 w-4 text-green-500" />
+                      <span>團隊協作功能</span>
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <CheckCircle className="h-4 w-4 text-green-500" />
+                      <span>專屬客戶經理</span>
+                    </li>
+                  </ul>
+                  <Button className="w-full" variant="outline">聯繫業務</Button>
+                </div>
+              </Card>
             </div>
           </div>
         </section>

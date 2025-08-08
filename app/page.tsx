@@ -73,14 +73,16 @@ export default function Home() {
                     開始專業創作
                   </Button>
                 </a>
-                <Button 
-                  size="lg" 
-                  variant="outline" 
-                  className="text-lg px-8 py-6 border-2 hover:bg-blue-50 transition-all"
-                >
-                  <Play className="mr-2 h-5 w-5" />
-                  查看案例展示
-                </Button>
+                <a href="#showcase">
+                  <Button 
+                    size="lg" 
+                    variant="outline" 
+                    className="text-lg px-8 py-6 border-2 hover:bg-blue-50 transition-all"
+                  >
+                    <Play className="mr-2 h-5 w-5" />
+                    查看案例展示
+                  </Button>
+                </a>
               </div>
               
               {/* Social proof */}
@@ -223,6 +225,227 @@ export default function Home() {
                   </div>
                 </div>
               </Card>
+            </div>
+          </div>
+        </section>
+
+        {/* Showcase Section */}
+        <section id="showcase" className="py-20 bg-white">
+          <div className="container max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-16">
+              <Badge className="mb-4 px-4 py-1.5 text-sm bg-orange-100 text-orange-700 border-orange-200">
+                <Play className="h-3 w-3 mr-1" />
+                成功案例展示
+              </Badge>
+              <h2 className="text-4xl sm:text-5xl font-bold mb-4 text-slate-800">
+                專業創作者的實際應用案例
+              </h2>
+              <p className="text-muted-foreground text-xl max-w-2xl mx-auto">
+                看看不同行業的專業創作者如何使用 ContentSwap Pro 提升工作效率
+              </p>
+            </div>
+
+            {/* Industry Cases */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16">
+              
+              {/* YouTuber Case */}
+              <Card className="p-8 bg-gradient-to-br from-red-50 to-pink-50 border-red-100 hover:shadow-xl transition-shadow">
+                <div className="space-y-6">
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="p-2 rounded-lg bg-red-100">
+                      <Video className="h-5 w-5 text-red-600" />
+                    </div>
+                    <div>
+                      <h3 className="text-xl font-bold">YouTube 內容創作</h3>
+                      <p className="text-sm text-red-600">縮圖製作 · 影片封面</p>
+                    </div>
+                  </div>
+                  
+                  {/* Before/After Comparison */}
+                  <div className="relative">
+                    <div className="grid grid-cols-2 gap-4">
+                      <div className="relative">
+                        <div className="aspect-video bg-gradient-to-br from-gray-200 to-gray-300 rounded-lg flex items-center justify-center">
+                          <span className="text-gray-500 text-sm">原始素材</span>
+                        </div>
+                        <Badge className="absolute top-2 left-2 bg-red-100 text-red-700 text-xs">
+                          Before
+                        </Badge>
+                      </div>
+                      <div className="relative">
+                        <div className="aspect-video bg-gradient-to-br from-blue-200 to-purple-300 rounded-lg flex items-center justify-center">
+                          <span className="text-white text-sm font-medium">專業效果</span>
+                        </div>
+                        <Badge className="absolute top-2 left-2 bg-green-100 text-green-700 text-xs">
+                          After
+                        </Badge>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div className="space-y-2 text-sm text-muted-foreground">
+                    <p><strong className="text-foreground">客戶：</strong>科技頻道 YouTuber</p>
+                    <p><strong className="text-foreground">需求：</strong>多樣化縮圖人物，提升點擊率</p>
+                    <p><strong className="text-foreground">效果：</strong>點擊率提升 45%，節省拍攝成本 80%</p>
+                  </div>
+                </div>
+              </Card>
+
+              {/* E-commerce Case */}
+              <Card className="p-8 bg-gradient-to-br from-green-50 to-emerald-50 border-green-100 hover:shadow-xl transition-shadow">
+                <div className="space-y-6">
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="p-2 rounded-lg bg-green-100">
+                      <Users className="h-5 w-5 text-green-600" />
+                    </div>
+                    <div>
+                      <h3 className="text-xl font-bold">電商產品攝影</h3>
+                      <p className="text-sm text-green-600">服裝展示 · 模特兒替換</p>
+                    </div>
+                  </div>
+                  
+                  {/* Before/After Comparison */}
+                  <div className="relative">
+                    <div className="grid grid-cols-2 gap-4">
+                      <div className="relative">
+                        <div className="aspect-[3/4] bg-gradient-to-br from-gray-200 to-gray-300 rounded-lg flex items-center justify-center">
+                          <span className="text-gray-500 text-sm">原始模特兒</span>
+                        </div>
+                        <Badge className="absolute top-2 left-2 bg-red-100 text-red-700 text-xs">
+                          Before
+                        </Badge>
+                      </div>
+                      <div className="relative">
+                        <div className="aspect-[3/4] bg-gradient-to-br from-green-200 to-emerald-300 rounded-lg flex items-center justify-center">
+                          <span className="text-white text-sm font-medium">本土化模特兒</span>
+                        </div>
+                        <Badge className="absolute top-2 left-2 bg-green-100 text-green-700 text-xs">
+                          After
+                        </Badge>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div className="space-y-2 text-sm text-muted-foreground">
+                    <p><strong className="text-foreground">客戶：</strong>服裝品牌電商</p>
+                    <p><strong className="text-foreground">需求：</strong>本土化產品展示，降低拍攝成本</p>
+                    <p><strong className="text-foreground">效果：</strong>轉換率提升 30%，拍攝成本降低 70%</p>
+                  </div>
+                </div>
+              </Card>
+
+              {/* Agency Case */}
+              <Card className="p-8 bg-gradient-to-br from-blue-50 to-cyan-50 border-blue-100 hover:shadow-xl transition-shadow">
+                <div className="space-y-6">
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="p-2 rounded-lg bg-blue-100">
+                      <BarChart3 className="h-5 w-5 text-blue-600" />
+                    </div>
+                    <div>
+                      <h3 className="text-xl font-bold">廣告代理商</h3>
+                      <p className="text-sm text-blue-600">創意多元化 · A/B 測試</p>
+                    </div>
+                  </div>
+                  
+                  {/* Before/After Comparison */}
+                  <div className="relative">
+                    <div className="grid grid-cols-2 gap-4">
+                      <div className="relative">
+                        <div className="aspect-[4/3] bg-gradient-to-br from-gray-200 to-gray-300 rounded-lg flex items-center justify-center">
+                          <span className="text-gray-500 text-sm">單一代言人</span>
+                        </div>
+                        <Badge className="absolute top-2 left-2 bg-red-100 text-red-700 text-xs">
+                          Before
+                        </Badge>
+                      </div>
+                      <div className="relative">
+                        <div className="aspect-[4/3] bg-gradient-to-br from-blue-200 to-cyan-300 rounded-lg flex items-center justify-center">
+                          <span className="text-white text-sm font-medium">多元代言人</span>
+                        </div>
+                        <Badge className="absolute top-2 left-2 bg-green-100 text-green-700 text-xs">
+                          After
+                        </Badge>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div className="space-y-2 text-sm text-muted-foreground">
+                    <p><strong className="text-foreground">客戶：</strong>數位行銷代理商</p>
+                    <p><strong className="text-foreground">需求：</strong>快速產出多版本廣告創意</p>
+                    <p><strong className="text-foreground">效果：</strong>創意產出速度提升 3 倍，客戶滿意度提升</p>
+                  </div>
+                </div>
+              </Card>
+
+              {/* Enterprise Case */}
+              <Card className="p-8 bg-gradient-to-br from-purple-50 to-indigo-50 border-purple-100 hover:shadow-xl transition-shadow">
+                <div className="space-y-6">
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="p-2 rounded-lg bg-purple-100">
+                      <Award className="h-5 w-5 text-purple-600" />
+                    </div>
+                    <div>
+                      <h3 className="text-xl font-bold">企業行銷</h3>
+                      <p className="text-sm text-purple-600">品牌全球化 · 多市場適配</p>
+                    </div>
+                  </div>
+                  
+                  {/* Before/After Comparison */}
+                  <div className="relative">
+                    <div className="grid grid-cols-2 gap-4">
+                      <div className="relative">
+                        <div className="aspect-[4/3] bg-gradient-to-br from-gray-200 to-gray-300 rounded-lg flex items-center justify-center">
+                          <span className="text-gray-500 text-sm">原版廣告</span>
+                        </div>
+                        <Badge className="absolute top-2 left-2 bg-red-100 text-red-700 text-xs">
+                          Before
+                        </Badge>
+                      </div>
+                      <div className="relative">
+                        <div className="aspect-[4/3] bg-gradient-to-br from-purple-200 to-indigo-300 rounded-lg flex items-center justify-center">
+                          <span className="text-white text-sm font-medium">多市場版本</span>
+                        </div>
+                        <Badge className="absolute top-2 left-2 bg-green-100 text-green-700 text-xs">
+                          After
+                        </Badge>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div className="space-y-2 text-sm text-muted-foreground">
+                    <p><strong className="text-foreground">客戶：</strong>跨國企業品牌</p>
+                    <p><strong className="text-foreground">需求：</strong>品牌廣告多市場本土化</p>
+                    <p><strong className="text-foreground">效果：</strong>本土化速度提升 5 倍，成本降低 60%</p>
+                  </div>
+                </div>
+              </Card>
+            </div>
+
+            {/* ROI Statistics */}
+            <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl p-8 border border-blue-100">
+              <div className="text-center mb-8">
+                <h3 className="text-2xl font-bold text-slate-800 mb-2">平均投資回報率 (ROI)</h3>
+                <p className="text-muted-foreground">基於 1,000+ 專業創作者的實際使用數據</p>
+              </div>
+              
+              <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
+                <div className="text-center">
+                  <div className="text-3xl font-bold text-green-600 mb-2">300%</div>
+                  <div className="text-sm text-muted-foreground">平均ROI提升</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-3xl font-bold text-blue-600 mb-2">75%</div>
+                  <div className="text-sm text-muted-foreground">製作成本節省</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-3xl font-bold text-orange-600 mb-2">5x</div>
+                  <div className="text-sm text-muted-foreground">內容產出速度</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-3xl font-bold text-purple-600 mb-2">95%</div>
+                  <div className="text-sm text-muted-foreground">客戶滿意度</div>
+                </div>
+              </div>
             </div>
           </div>
         </section>

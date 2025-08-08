@@ -637,101 +637,148 @@ export default function Home() {
               <p className="text-muted-foreground text-xl max-w-2xl mx-auto mb-6">
                 從個人創作者到企業團隊，我們提供彈性的訂閱選項
               </p>
-              <div className="bg-blue-100 border border-blue-200 rounded-lg p-4 max-w-3xl mx-auto">
-                <p className="text-blue-700 text-sm">
-                  <CheckCircle className="h-4 w-4 inline mr-2" />
-                  所有處理均包含在訂閱方案中，無需額外按次付費
-                </p>
+              <div className="space-y-3">
+                <div className="bg-blue-100 border border-blue-200 rounded-lg p-4 max-w-3xl mx-auto">
+                  <p className="text-blue-700 text-sm">
+                    <CheckCircle className="h-4 w-4 inline mr-2" />
+                    所有處理均包含在訂閱方案中，無需額外按次付費
+                  </p>
+                </div>
+                <div className="bg-orange-50 border border-orange-200 rounded-lg p-3 max-w-3xl mx-auto">
+                  <p className="text-orange-700 text-xs">
+                    <Shield className="h-3 w-3 inline mr-1" />
+                    企業版超量使用按 $0.08/次計費 | 所有方案均受公平使用政策約束
+                  </p>
+                </div>
               </div>
             </div>
 
             {/* Pricing Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-6 max-w-7xl mx-auto">
               {/* 免費版 */}
-              <Card className="p-8 bg-white shadow-lg hover:shadow-xl transition-shadow relative">
-                <div className="space-y-6">
+              <Card className="p-6 bg-white shadow-lg hover:shadow-xl transition-shadow relative">
+                <div className="space-y-4">
                   <div className="text-center">
-                    <h3 className="text-xl font-bold mb-2">免費試用</h3>
-                    <div className="text-3xl font-bold text-slate-800 mb-1">$0</div>
-                    <p className="text-sm text-muted-foreground">每月 3 次處理</p>
+                    <h3 className="text-lg font-bold mb-2">免費試用</h3>
+                    <div className="text-2xl font-bold text-slate-800 mb-1">$0</div>
+                    <p className="text-xs text-muted-foreground">每月 3 次處理</p>
                   </div>
-                  <ul className="space-y-3 text-sm">
+                  <ul className="space-y-2 text-xs">
                     <li className="flex items-center gap-2">
-                      <CheckCircle className="h-4 w-4 text-green-500" />
+                      <CheckCircle className="h-3 w-3 text-green-500" />
                       <span>標準品質輸出</span>
                     </li>
                     <li className="flex items-center gap-2">
-                      <CheckCircle className="h-4 w-4 text-green-500" />
-                      <span>基本技術支援</span>
+                      <CheckCircle className="h-3 w-3 text-green-500" />
+                      <span>社群技術支援</span>
                     </li>
                   </ul>
-                  <Button className="w-full" variant="outline">開始免費試用</Button>
+                  <Button className="w-full text-sm py-2" variant="outline">開始免費試用</Button>
+                </div>
+              </Card>
+
+              {/* 創作者版 */}
+              <Card className="p-6 bg-white shadow-lg hover:shadow-xl transition-shadow relative ring-2 ring-orange-500">
+                <div className="absolute -top-2 left-1/2 transform -translate-x-1/2">
+                  <Badge className="px-2 py-1 bg-orange-600 text-white text-xs">
+                    <Star className="h-3 w-3 mr-1" />
+                    新方案
+                  </Badge>
+                </div>
+                <div className="space-y-4">
+                  <div className="text-center">
+                    <h3 className="text-lg font-bold mb-2">創作者版</h3>
+                    <div className="text-2xl font-bold text-orange-600 mb-1">$29</div>
+                    <p className="text-xs text-muted-foreground">每月 50 次處理</p>
+                    <p className="text-xs text-orange-600 font-medium">$0.58/次</p>
+                  </div>
+                  <ul className="space-y-2 text-xs">
+                    <li className="flex items-center gap-2">
+                      <CheckCircle className="h-3 w-3 text-green-500" />
+                      <span>高清品質輸出</span>
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <CheckCircle className="h-3 w-3 text-green-500" />
+                      <span>基礎批量處理</span>
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <CheckCircle className="h-3 w-3 text-green-500" />
+                      <span>Email 技術支援</span>
+                    </li>
+                  </ul>
+                  <Button className="w-full bg-orange-600 hover:bg-orange-700 text-sm py-2">立即選購</Button>
                 </div>
               </Card>
 
               {/* 專業版 */}
-              <Card className="p-8 bg-white shadow-lg hover:shadow-xl transition-shadow relative ring-2 ring-blue-500">
-                <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
-                  <Badge className="px-3 py-1 bg-blue-600 text-white">
-                    <Star className="h-3 w-3 mr-1" />
+              <Card className="p-6 bg-white shadow-lg hover:shadow-xl transition-shadow relative ring-2 ring-blue-500">
+                <div className="absolute -top-2 left-1/2 transform -translate-x-1/2">
+                  <Badge className="px-2 py-1 bg-blue-600 text-white text-xs">
+                    <Trophy className="h-3 w-3 mr-1" />
                     最受歡迎
                   </Badge>
                 </div>
-                <div className="space-y-6">
+                <div className="space-y-4">
                   <div className="text-center">
-                    <h3 className="text-xl font-bold mb-2">專業版</h3>
-                    <div className="text-3xl font-bold text-blue-600 mb-1">$49</div>
-                    <p className="text-sm text-muted-foreground">每月 200 次處理</p>
+                    <h3 className="text-lg font-bold mb-2">專業版</h3>
+                    <div className="text-2xl font-bold text-blue-600 mb-1">$69</div>
+                    <p className="text-xs text-muted-foreground">每月 250 次處理</p>
+                    <p className="text-xs text-blue-600 font-medium">$0.28/次</p>
                   </div>
-                  <ul className="space-y-3 text-sm">
+                  <ul className="space-y-2 text-xs">
                     <li className="flex items-center gap-2">
-                      <CheckCircle className="h-4 w-4 text-green-500" />
-                      <span>4K 高品質輸出</span>
+                      <CheckCircle className="h-3 w-3 text-green-500" />
+                      <span>4K 專業輸出</span>
                     </li>
                     <li className="flex items-center gap-2">
-                      <CheckCircle className="h-4 w-4 text-green-500" />
-                      <span>批量處理功能</span>
+                      <CheckCircle className="h-3 w-3 text-green-500" />
+                      <span>高級批量處理</span>
                     </li>
                     <li className="flex items-center gap-2">
-                      <CheckCircle className="h-4 w-4 text-green-500" />
+                      <CheckCircle className="h-3 w-3 text-green-500" />
                       <span>優先技術支援</span>
                     </li>
                     <li className="flex items-center gap-2">
-                      <CheckCircle className="h-4 w-4 text-green-500" />
+                      <CheckCircle className="h-3 w-3 text-green-500" />
                       <span>專案管理工具</span>
                     </li>
                   </ul>
-                  <Button className="w-full bg-blue-600 hover:bg-blue-700">立即升級</Button>
+                  <Button className="w-full bg-blue-600 hover:bg-blue-700 text-sm py-2">立即升級</Button>
                 </div>
               </Card>
 
               {/* 企業版 */}
-              <Card className="p-8 bg-white shadow-lg hover:shadow-xl transition-shadow relative">
-                <div className="space-y-6">
+              <Card className="p-6 bg-white shadow-lg hover:shadow-xl transition-shadow relative">
+                <div className="space-y-4">
                   <div className="text-center">
-                    <h3 className="text-xl font-bold mb-2">企業版</h3>
-                    <div className="text-3xl font-bold text-slate-800 mb-1">$199</div>
-                    <p className="text-sm text-muted-foreground">無限制處理</p>
+                    <h3 className="text-lg font-bold mb-2">企業版</h3>
+                    <div className="text-2xl font-bold text-slate-800 mb-1">$299</div>
+                    <p className="text-xs text-muted-foreground">每月 2,000 次處理</p>
+                    <p className="text-xs text-slate-600 font-medium">$0.15/次</p>
                   </div>
-                  <ul className="space-y-3 text-sm">
+                  <ul className="space-y-2 text-xs">
                     <li className="flex items-center gap-2">
-                      <CheckCircle className="h-4 w-4 text-green-500" />
+                      <CheckCircle className="h-3 w-3 text-green-500" />
                       <span>所有專業版功能</span>
                     </li>
                     <li className="flex items-center gap-2">
-                      <CheckCircle className="h-4 w-4 text-green-500" />
-                      <span>API 存取權限</span>
+                      <CheckCircle className="h-3 w-3 text-green-500" />
+                      <span>REST API 存取</span>
                     </li>
                     <li className="flex items-center gap-2">
-                      <CheckCircle className="h-4 w-4 text-green-500" />
+                      <CheckCircle className="h-3 w-3 text-green-500" />
                       <span>團隊協作功能</span>
                     </li>
                     <li className="flex items-center gap-2">
-                      <CheckCircle className="h-4 w-4 text-green-500" />
+                      <CheckCircle className="h-3 w-3 text-green-500" />
                       <span>專屬客戶經理</span>
                     </li>
+                    <li className="flex items-center gap-2">
+                      <CheckCircle className="h-3 w-3 text-green-500" />
+                      <span>超量使用 $0.08/次</span>
+                    </li>
                   </ul>
-                  <Button className="w-full" variant="outline">聯繫業務</Button>
+                  <Button className="w-full text-sm py-2" variant="outline">聯繫業務</Button>
                 </div>
               </Card>
             </div>

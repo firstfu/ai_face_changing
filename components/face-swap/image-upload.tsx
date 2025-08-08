@@ -156,7 +156,7 @@ export function ImageUpload({
                   )}
                 </div>
                 {!isDragging && (
-                  <div className="absolute -bottom-1 -right-1 left-0 right-0 mx-auto w-6 h-6 bg-gradient-to-r from-purple-600 to-pink-600 rounded-full flex items-center justify-center">
+                  <div className="absolute -bottom-1 left-0 right-0 mx-auto w-6 h-6 bg-gradient-to-r from-purple-600 to-pink-600 rounded-full flex items-center justify-center">
                     <Sparkles className="h-3 w-3 text-white animate-pulse" />
                   </div>
                 )}

@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useRef, useCallback } from 'react';
-import { Upload, X, Image as ImageIcon } from 'lucide-react';
+import { Upload, X, Image as ImageIcon, Sparkles, Camera } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
@@ -27,13 +27,13 @@ export function ImageUpload({
 
   const validateFile = useCallback((file: File): string | null => {
     if (!acceptedTypes.includes(file.type)) {
-      return `請上傳支援的圖片格式：${acceptedTypes.map(type => 
+      return `請上傳支援的高清圖片格式：${acceptedTypes.map(type => 
         type.split('/')[1].toUpperCase()
-      ).join(', ')}`;
+      ).join(', ')} 📸`;
     }
 
     if (file.size > maxSize * 1024 * 1024) {
-      return `圖片大小不能超過 ${maxSize}MB`;
+      return `圖片大小不能超過 ${maxSize}MB，請壓縮後重試 📉`;
     }
 
     return null;
@@ -90,16 +90,23 @@ export function ImageUpload({
   }, []);
 
   return (
-    <div className="space-y-2">
-      <Label className="text-sm font-medium">{label}</Label>
+    <div className="space-y-3">
+      <div className="flex items-center gap-2">
+        <Label className="text-base font-semibold">{label}</Label>
+        {!preview && (
+          <span className="text-xs px-2 py-1 rounded-full bg-gradient-to-r from-purple-100 to-pink-100 text-purple-700">
+            必選
+          </span>
+        )}
+      </div>
       
       <Card
-        className={`relative border-2 border-dashed transition-colors duration-200 ${
+        className={`relative border-2 transition-all duration-300 overflow-hidden ${
           isDragging
-            ? 'border-primary bg-primary/5'
+            ? 'border-purple-500 bg-gradient-to-br from-purple-50 to-pink-50 scale-105 shadow-xl'
             : preview
-            ? 'border-solid border-border'
-            : 'border-muted-foreground/25 hover:border-muted-foreground/50'
+            ? 'border-solid border-purple-300 shadow-lg'
+            : 'border-dashed border-purple-200 hover:border-purple-400 hover:shadow-md hover:bg-gradient-to-br hover:from-purple-50/50 hover:to-pink-50/50'
         }`}
       >
         <input
@@ -140,25 +147,45 @@ export function ImageUpload({
             </>
           ) : (
             <div className="text-center space-y-4">
-              <div className="mx-auto w-16 h-16 bg-muted rounded-full flex items-center justify-center">
-                {isDragging ? (
-                  <Upload className="h-8 w-8 text-primary" />
-                ) : (
-                  <ImageIcon className="h-8 w-8 text-muted-foreground" />
+              <div className="relative">
+                <div className="mx-auto w-20 h-20 bg-gradient-to-br from-purple-100 to-pink-100 rounded-full flex items-center justify-center transition-all">
+                  {isDragging ? (
+                    <Upload className="h-10 w-10 text-purple-600 animate-bounce" />
+                  ) : (
+                    <Camera className="h-10 w-10 text-purple-600" />
+                  )}
+                </div>
+                {!isDragging && (
+                  <div className="absolute -bottom-1 -right-1 left-0 right-0 mx-auto w-6 h-6 bg-gradient-to-r from-purple-600 to-pink-600 rounded-full flex items-center justify-center">
+                    <Sparkles className="h-3 w-3 text-white animate-pulse" />
+                  </div>
                 )}
               </div>
               
               <div className="space-y-2">
-                <p className="text-sm font-medium">
-                  {isDragging ? '放開以上傳圖片' : '點擊上傳或拖放圖片'}
+                <p className="text-base font-semibold text-foreground">
+                  {isDragging ? (
+                    <span className="text-purple-600">放開即可上傳 🎆</span>
+                  ) : (
+                    <span>點擊或拖拽上傳圖片</span>
+                  )}
+                </p>
+                <p className="text-sm text-muted-foreground">
+                  支援 <span className="font-medium">JPG, PNG, WebP</span> 高清格式
                 </p>
                 <p className="text-xs text-muted-foreground">
-                  支援 JPG, PNG, WebP 格式，最大 {maxSize}MB
+                  最大 {maxSize}MB · 建議使用正面清晰照片
                 </p>
               </div>
 
-              <Button type="button" variant="outline" size="sm">
-                選擇檔案
+              <Button 
+                type="button" 
+                variant="outline" 
+                size="sm"
+                className="bg-gradient-to-r from-purple-50 to-pink-50 border-purple-300 hover:border-purple-500 hover:shadow-md transition-all"
+              >
+                <ImageIcon className="h-4 w-4 mr-2" />
+                選擇圖片檔案
               </Button>
             </div>
           )}
@@ -166,7 +193,10 @@ export function ImageUpload({
       </Card>
 
       {error && (
-        <p className="text-sm text-destructive">{error}</p>
+        <div className="flex items-center gap-2 p-3 rounded-lg bg-red-50 border border-red-200">
+          <X className="h-4 w-4 text-red-500 flex-shrink-0" />
+          <p className="text-sm text-red-700">{error}</p>
+        </div>
       )}
     </div>
   );

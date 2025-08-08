@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Download, Share2, RotateCcw, Clock, CheckCircle, XCircle } from 'lucide-react';
+import { Download, Share2, RotateCcw, Clock, CheckCircle, XCircle, Sparkles, Trophy, Star, ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -32,13 +32,13 @@ export function ResultDisplay() {
   const getStatusText = () => {
     switch (currentSwap.status) {
       case 'completed':
-        return '處理完成';
+        return '✨ 完美完成';
       case 'failed':
-        return '處理失敗';
+        return '❌ 處理失敗';
       case 'processing':
-        return '處理中';
+        return '🎨 正在施展魔法';
       case 'pending':
-        return '等待處理';
+        return '⏳ 準備中';
       default:
         return '未知狀態';
     }
@@ -102,54 +102,102 @@ export function ResultDisplay() {
   };
 
   return (
-    <Card className="p-6 space-y-6">
+    <Card className="p-8 space-y-6 bg-gradient-to-br from-white to-purple-50/30 border-purple-200/50">
       {/* 狀態標題 */}
       <div className="flex items-center justify-between">
         <div className="flex items-center space-x-3">
-          {getStatusIcon()}
+          {currentSwap.status === 'completed' ? (
+            <div className="p-3 rounded-full bg-gradient-to-r from-green-500 to-emerald-500 shadow-lg">
+              <Trophy className="h-6 w-6 text-white" />
+            </div>
+          ) : (
+            getStatusIcon()
+          )}
           <div>
-            <h3 className="font-semibold">處理結果</h3>
-            <p className="text-sm text-muted-foreground">
-              ID: {currentSwap.id}
+            <h3 className="text-xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+              換臉結果
+            </h3>
+            <p className="text-sm text-muted-foreground flex items-center gap-1">
+              <Sparkles className="h-3 w-3" />
+              任務 {currentSwap.id.slice(0, 8)}
             </p>
           </div>
         </div>
-        <Badge variant={getStatusVariant()}>
+        <Badge 
+          variant={getStatusVariant()} 
+          className={currentSwap.status === 'completed' ? 'bg-gradient-to-r from-green-500 to-emerald-500 text-white border-0' : ''}
+        >
           {getStatusText()}
         </Badge>
       </div>
 
       {/* 圖片對比展示 */}
       <div className="space-y-4">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        {currentSwap.status === 'completed' && (
+          <div className="text-center mb-4">
+            <Badge className="px-4 py-1.5 bg-gradient-to-r from-yellow-100 to-orange-100 text-yellow-800 border-yellow-300">
+              <Star className="h-3 w-3 mr-1" />
+              換臉成功！看看您的新面孔
+            </Badge>
+          </div>
+        )}
+        
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {/* 來源圖片 */}
-          <div className="space-y-2">
-            <label className="text-sm font-medium">來源圖片</label>
-            <div className="aspect-square relative rounded-lg overflow-hidden bg-muted">
+          <div className="space-y-3">
+            <div className="flex items-center justify-between">
+              <label className="text-sm font-semibold flex items-center gap-2">
+                <div className="w-6 h-6 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 flex items-center justify-center text-white text-xs font-bold">1</div>
+                原始臉部
+              </label>
+            </div>
+            <div className="aspect-square relative rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow">
               <img
                 src={currentSwap.sourceImageUrl}
                 alt="來源圖片"
                 className="w-full h-full object-cover"
               />
+              <div className="absolute bottom-2 left-2 px-2 py-1 bg-black/50 backdrop-blur rounded text-white text-xs">
+                被替換的臉
+              </div>
             </div>
           </div>
 
           {/* 目標圖片 */}
-          <div className="space-y-2">
-            <label className="text-sm font-medium">目標圖片</label>
-            <div className="aspect-square relative rounded-lg overflow-hidden bg-muted">
+          <div className="space-y-3">
+            <div className="flex items-center justify-between">
+              <label className="text-sm font-semibold flex items-center gap-2">
+                <div className="w-6 h-6 rounded-full bg-gradient-to-r from-blue-500 to-cyan-500 flex items-center justify-center text-white text-xs font-bold">2</div>
+                目標臉部
+              </label>
+            </div>
+            <div className="aspect-square relative rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow">
               <img
                 src={currentSwap.targetImageUrl}
                 alt="目標圖片"
                 className="w-full h-full object-cover"
               />
+              <div className="absolute bottom-2 left-2 px-2 py-1 bg-black/50 backdrop-blur rounded text-white text-xs">
+                新的臉部來源
+              </div>
             </div>
           </div>
 
           {/* 結果圖片 */}
-          <div className="space-y-2">
-            <label className="text-sm font-medium">換臉結果</label>
-            <div className="aspect-square relative rounded-lg overflow-hidden bg-muted">
+          <div className="space-y-3">
+            <div className="flex items-center justify-between">
+              <label className="text-sm font-semibold flex items-center gap-2">
+                <div className="w-6 h-6 rounded-full bg-gradient-to-r from-green-500 to-emerald-500 flex items-center justify-center text-white text-xs font-bold">✓</div>
+                最終成果
+              </label>
+              {currentSwap.status === 'completed' && (
+                <Badge className="bg-green-100 text-green-700 border-green-300">
+                  <Sparkles className="h-3 w-3 mr-1" />
+                  完成
+                </Badge>
+              )}
+            </div>
+            <div className="aspect-square relative rounded-xl overflow-hidden shadow-xl hover:shadow-2xl transition-all transform hover:scale-105 ring-4 ring-purple-500 ring-offset-2">
               {currentSwap.status === 'completed' && currentSwap.resultImageUrl ? (
                 <img
                   src={currentSwap.resultImageUrl}
@@ -157,20 +205,30 @@ export function ResultDisplay() {
                   className="w-full h-full object-cover"
                 />
               ) : currentSwap.status === 'failed' ? (
-                <div className="w-full h-full flex items-center justify-center">
-                  <div className="text-center space-y-2">
-                    <XCircle className="h-12 w-12 text-red-500 mx-auto" />
-                    <p className="text-sm text-muted-foreground">處理失敗</p>
+                <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-red-50 to-pink-50">
+                  <div className="text-center space-y-3 p-6">
+                    <div className="p-4 rounded-full bg-red-100 w-fit mx-auto">
+                      <XCircle className="h-12 w-12 text-red-500" />
+                    </div>
+                    <p className="text-base font-semibold text-red-700">處理失敗</p>
                     {currentSwap.error && (
-                      <p className="text-xs text-red-500">{currentSwap.error}</p>
+                      <p className="text-sm text-red-600 bg-red-100 rounded-lg p-2">{currentSwap.error}</p>
                     )}
                   </div>
                 </div>
               ) : (
-                <div className="w-full h-full flex items-center justify-center">
-                  <div className="text-center space-y-2">
-                    <div className="animate-spin h-8 w-8 border-4 border-primary border-t-transparent rounded-full mx-auto"></div>
-                    <p className="text-sm text-muted-foreground">處理中...</p>
+                <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-purple-50 to-pink-50">
+                  <div className="text-center space-y-3">
+                    <div className="relative">
+                      <div className="animate-spin h-12 w-12 border-4 border-purple-600 border-t-transparent rounded-full mx-auto"></div>
+                      <Sparkles className="h-6 w-6 text-purple-600 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 animate-pulse" />
+                    </div>
+                    <p className="text-sm font-medium text-purple-700">正在施展魔法...</p>
+                    <div className="flex justify-center gap-1">
+                      <div className="w-2 h-2 bg-purple-600 rounded-full animate-bounce" style={{animationDelay: '0ms'}} />
+                      <div className="w-2 h-2 bg-purple-600 rounded-full animate-bounce" style={{animationDelay: '150ms'}} />
+                      <div className="w-2 h-2 bg-purple-600 rounded-full animate-bounce" style={{animationDelay: '300ms'}} />
+                    </div>
                   </div>
                 </div>
               )}
@@ -211,31 +269,45 @@ export function ResultDisplay() {
 
       {/* 操作按鈕 */}
       {currentSwap.status === 'completed' && currentSwap.resultImageUrl && (
-        <div className="flex gap-3">
-          <Button
-            onClick={handleDownload}
-            disabled={isDownloading}
-            className="flex-1"
-          >
-            <Download className="h-4 w-4 mr-2" />
-            {isDownloading ? '下載中...' : '下載結果'}
-          </Button>
+        <div className="space-y-4">
+          <div className="p-4 rounded-xl bg-gradient-to-r from-green-50 to-emerald-50 border border-green-200">
+            <div className="flex items-center gap-2 mb-2">
+              <CheckCircle className="h-5 w-5 text-green-600" />
+              <span className="font-semibold text-green-800">大功告成！</span>
+            </div>
+            <p className="text-sm text-green-700">
+              您的換臉已經完成，現在可以下載或分享給朋友了！
+            </p>
+          </div>
           
-          <Button
-            onClick={handleShare}
-            variant="outline"
-          >
-            <Share2 className="h-4 w-4 mr-2" />
-            分享
-          </Button>
-          
-          <Button
-            onClick={() => window.location.reload()}
-            variant="outline"
-          >
-            <RotateCcw className="h-4 w-4 mr-2" />
-            重新開始
-          </Button>
+          <div className="flex gap-3">
+            <Button
+              onClick={handleDownload}
+              disabled={isDownloading}
+              className="flex-1 h-12 text-base bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 shadow-lg hover:shadow-xl transition-all"
+            >
+              <Download className="h-5 w-5 mr-2" />
+              {isDownloading ? '正在下載...' : '下載高清圖片'}
+            </Button>
+            
+            <Button
+              onClick={handleShare}
+              variant="outline"
+              className="h-12 px-6 hover:bg-gradient-to-r hover:from-purple-50 hover:to-pink-50"
+            >
+              <Share2 className="h-5 w-5 mr-2" />
+              分享
+            </Button>
+            
+            <Button
+              onClick={() => window.location.reload()}
+              variant="outline"
+              className="h-12 px-6 hover:bg-gradient-to-r hover:from-gray-50 hover:to-gray-100"
+            >
+              <ArrowRight className="h-5 w-5 mr-2 rotate-180" />
+              再試一次
+            </Button>
+          </div>
         </div>
       )}
     </Card>

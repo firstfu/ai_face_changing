@@ -51,7 +51,7 @@ interface FaceSwapStore {
   clearUserData: () => void;
 }
 
-export const useFaceSwapStore = create<FaceSwapStore>(
+export const useFaceSwapStore = create<FaceSwapStore>()(
   persist(
     (set, get) => ({
       // 初始狀態

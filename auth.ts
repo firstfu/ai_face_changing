@@ -4,8 +4,9 @@ import Google from "next-auth/providers/google";
 import Credentials from "next-auth/providers/credentials";
 import { prisma } from "@/lib/prisma";
 import bcrypt from "bcryptjs";
+import type { Provider } from "next-auth/providers";
 
-const providers = [
+const providers: Provider[] = [
   Credentials({
     name: "credentials",
     credentials: {
@@ -47,7 +48,7 @@ const providers = [
 
 // 只有在設定了 Google OAuth 環境變數時才加入 Google provider
 if (process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_CLIENT_SECRET) {
-  providers.unshift(Google({
+  providers.push(Google({
     clientId: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
   }));
@@ -62,7 +63,6 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
   },
   pages: {
     signIn: "/auth/signin",
-    signUp: "/auth/signup",
   },
   callbacks: {
     async jwt({ token, user }) {

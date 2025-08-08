@@ -63,7 +63,7 @@ export default async function DashboardPage() {
     redirect('/auth/signin');
   }
 
-  const { user, subscription, currentUsage } = await getUserData(session.user.id);
+  const { user, subscription, currentUsage } = await getUserData(session.user.id as string);
 
   if (!user || !subscription) {
     redirect('/auth/signin');

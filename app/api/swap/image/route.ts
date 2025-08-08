@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { auth } from '@/auth';
 import { ReplicateService } from '@/lib/replicate';
 import { DEFAULT_IMAGE_MODEL, ECONOMY_IMAGE_MODEL } from '@/config/replicate';
-import { usageTracker } from '@/lib/usage-tracker';
+import { UsageTracker } from '@/lib/usage-tracker';
 
 export async function POST(request: NextRequest) {
   try {
@@ -17,7 +17,7 @@ export async function POST(request: NextRequest) {
     }
 
     // 檢查使用量限制
-    const usageCheck = await usageTracker.checkUsageLimit(session.user.id);
+    const usageCheck = await UsageTracker.checkUsageLimit(session.user.id as string);
     
     if (!usageCheck.canUse) {
       if (usageCheck.currentUsage >= usageCheck.limit) {
@@ -69,7 +69,7 @@ export async function POST(request: NextRequest) {
     );
 
     // 記錄使用量
-    await usageTracker.trackUsage(session.user.id, 'face_swap', 1);
+    await UsageTracker.trackUsage(session.user.id as string, 'face_swap', 1);
 
     return NextResponse.json({
       success: true,

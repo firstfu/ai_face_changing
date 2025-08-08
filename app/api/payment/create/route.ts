@@ -52,10 +52,10 @@ export async function POST(request: NextRequest) {
     
     // 創建 ECPay 付款
     const paymentResult = await ecpayService.createSubscriptionPayment({
-      userId: session.user.id,
+      userId: session.user.id as string,
       plan,
       amount: planConfig.price,
-      userEmail: session.user.email!,
+      userEmail: session.user.email as string,
     });
 
     if (!paymentResult.success) {
@@ -67,13 +67,13 @@ export async function POST(request: NextRequest) {
 
     // 記錄付款意圖到資料庫
     await prisma.subscription.upsert({
-      where: { userId: session.user.id },
+      where: { userId: session.user.id as string },
       update: {
         ecpayMerchantTradeNo: paymentResult.tradeNo,
         updatedAt: new Date(),
       },
       create: {
-        userId: session.user.id,
+        userId: session.user.id as string,
         plan,
         status: 'INCOMPLETE',
         currentPeriodStart: new Date(),
@@ -95,7 +95,7 @@ export async function POST(request: NextRequest) {
     
     if (error instanceof z.ZodError) {
       return NextResponse.json(
-        { error: error.errors[0].message },
+        { error: error.issues[0].message },
         { status: 400 }
       );
     }

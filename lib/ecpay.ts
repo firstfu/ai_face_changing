@@ -41,7 +41,7 @@ class ECPayService {
     };
 
     // 初始化 ECPay
-    this.payment = new ecpay_payment({
+    this.payment = ecpay_payment({
       OperationMode: this.config.Mode,
       MercProfile: {
         MerchantID: this.config.MerchantID,

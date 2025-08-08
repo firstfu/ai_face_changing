@@ -54,8 +54,6 @@ export default function SignInPage() {
     }
   };
 
-  // 檢查是否有設定 Google OAuth
-  const isGoogleEnabled = process.env.NEXT_PUBLIC_GOOGLE_ENABLED === 'true';
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-blue-50 flex items-center justify-center p-4">

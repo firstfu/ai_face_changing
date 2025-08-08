@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { auth } from '@/auth';
-import { usageTracker } from '@/lib/usage-tracker';
+import { UsageTracker } from '@/lib/usage-tracker';
 
 export async function GET(request: NextRequest) {
   try {
@@ -13,7 +13,7 @@ export async function GET(request: NextRequest) {
       );
     }
 
-    const usageStats = await usageTracker.getUserUsageStats(session.user.id);
+    const usageStats = await UsageTracker.getUserUsageStats(session.user.id as string);
 
     if (!usageStats) {
       return NextResponse.json(

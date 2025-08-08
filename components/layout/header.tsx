@@ -36,7 +36,7 @@ export function Header() {
               <h1 className="text-xl font-bold text-slate-800">
                 ContentSwap Pro
               </h1>
-              <p className="text-xs text-muted-foreground hidden sm:block flex items-center gap-1">
+              <p className="text-xs text-muted-foreground hidden sm:flex items-center gap-1">
                 <TrendingUp className="h-3 w-3 text-blue-600" />
                 專業內容創作工具
               </p>

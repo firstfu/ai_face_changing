@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Sparkles, Zap, ArrowRight, Star, TrendingUp, Award, Badge as BadgeIcon } from 'lucide-react';
+import { Settings, Zap, ArrowRight, Star, TrendingUp, Award, Badge as BadgeIcon } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
@@ -53,41 +53,41 @@ export function FaceSwapForm() {
   return (
     <div className="space-y-8">
       {/* 品質選擇 */}
-      <Card className="p-8 bg-gradient-to-br from-white to-purple-50/30 border-purple-200/50">
+      <Card className="p-8 bg-white border-slate-200">
         <div className="space-y-6">
           <div className="text-center">
-            <h3 className="text-2xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">選擇您的換臉方案</h3>
-            <p className="text-muted-foreground mt-2">兩種強大模式，滿足不同需求</p>
+            <h3 className="text-2xl font-bold text-slate-800">選擇處理方案</h3>
+            <p className="text-muted-foreground mt-2">根據您的使用需求選擇適合的處理品質</p>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div
-              className={`relative rounded-xl cursor-pointer transition-all transform hover:scale-105 ${
+              className={`relative rounded-xl cursor-pointer transition-all hover:scale-[1.02] ${
                 selectedQuality === 'high'
-                  ? 'ring-4 ring-purple-500 ring-offset-2 shadow-2xl'
-                  : 'hover:shadow-xl'
+                  ? 'ring-2 ring-blue-500 ring-offset-2 shadow-lg'
+                  : 'hover:shadow-md'
               }`}
               onClick={() => setSelectedQuality('high')}
             >
               <div className={`p-6 rounded-xl border-2 ${
                 selectedQuality === 'high'
-                  ? 'border-purple-500 bg-gradient-to-br from-purple-50 to-pink-50'
-                  : 'border-purple-200 bg-white hover:border-purple-400'
+                  ? 'border-blue-500 bg-blue-50/50'
+                  : 'border-slate-200 bg-white hover:border-blue-300'
               }`}>
                 {/* 推薦標籤 */}
                 <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
-                  <Badge className="px-3 py-1 bg-gradient-to-r from-purple-600 to-pink-600 text-white border-0">
+                  <Badge className="px-3 py-1 bg-blue-600 text-white border-0">
                     <Star className="h-3 w-3 mr-1" />
-                    最受歡迎
+                    推薦方案
                   </Badge>
                 </div>
                 
                 <div className="space-y-4">
                   <div className="flex items-center justify-between">
-                    <div className="p-3 rounded-full bg-gradient-to-r from-purple-600 to-pink-600 shadow-lg">
-                      <Sparkles className="h-6 w-6 text-white animate-pulse" />
+                    <div className="p-3 rounded-full bg-blue-600 shadow-lg">
+                      <Settings className="h-6 w-6 text-white" />
                     </div>
-                    <Badge variant="outline" className="bg-purple-100 text-purple-700 border-purple-300">
+                    <Badge variant="outline" className="bg-blue-100 text-blue-700 border-blue-300">
                       Premium
                     </Badge>
                   </div>
@@ -95,7 +95,7 @@ export function FaceSwapForm() {
                   <div>
                     <h3 className="text-xl font-bold text-foreground">專業級品質</h3>
                     <p className="text-sm text-muted-foreground mt-1">
-                      影視等級輸出，完美細節還原
+                      適合商業使用，4K高清輸出
                     </p>
                   </div>
                   
@@ -103,28 +103,28 @@ export function FaceSwapForm() {
                   
                   <div className="space-y-2">
                     <div className="flex items-center gap-2 text-sm">
-                      <Award className="h-4 w-4 text-purple-600" />
-                      <span>4K 超高清輸出</span>
+                      <Award className="h-4 w-4 text-blue-600" />
+                      <span>4K 專業輸出</span>
                     </div>
                     <div className="flex items-center gap-2 text-sm">
-                      <TrendingUp className="h-4 w-4 text-purple-600" />
-                      <span>99.8% 真實度</span>
+                      <TrendingUp className="h-4 w-4 text-blue-600" />
+                      <span>99.7% 精確度</span>
                     </div>
                     <div className="flex items-center gap-2 text-sm">
-                      <Zap className="h-4 w-4 text-purple-600" />
-                      <span>30 秒極速處理</span>
+                      <Zap className="h-4 w-4 text-blue-600" />
+                      <span>30 秒處理</span>
                     </div>
                   </div>
                   
                   <div className="pt-4 space-y-2">
                     <div className="flex items-center justify-between">
-                      <span className="text-2xl font-bold text-purple-600">
+                      <span className="text-2xl font-bold text-blue-600">
                         ${REPLICATE_MODELS['easel/advanced-face-swap'].price}
                       </span>
-                      <span className="text-sm text-muted-foreground">每次</span>
+                      <span className="text-sm text-muted-foreground">每次處理</span>
                     </div>
                     {selectedQuality === 'high' && (
-                      <div className="text-xs text-green-600 font-medium animate-pulse">
+                      <div className="text-xs text-green-600 font-medium">
                         ✓ 已選擇此方案
                       </div>
                     )}
@@ -134,40 +134,40 @@ export function FaceSwapForm() {
             </div>
 
             <div
-              className={`relative rounded-xl cursor-pointer transition-all transform hover:scale-105 ${
+              className={`relative rounded-xl cursor-pointer transition-all hover:scale-[1.02] ${
                 selectedQuality === 'standard'
-                  ? 'ring-4 ring-blue-500 ring-offset-2 shadow-2xl'
-                  : 'hover:shadow-xl'
+                  ? 'ring-2 ring-orange-500 ring-offset-2 shadow-lg'
+                  : 'hover:shadow-md'
               }`}
               onClick={() => setSelectedQuality('standard')}
             >
               <div className={`p-6 rounded-xl border-2 ${
                 selectedQuality === 'standard'
-                  ? 'border-blue-500 bg-gradient-to-br from-blue-50 to-cyan-50'
-                  : 'border-blue-200 bg-white hover:border-blue-400'
+                  ? 'border-orange-500 bg-orange-50/50'
+                  : 'border-slate-200 bg-white hover:border-orange-300'
               }`}>
                 {/* 優惠標籤 */}
                 <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
-                  <Badge className="px-3 py-1 bg-gradient-to-r from-blue-600 to-green-600 text-white border-0">
+                  <Badge className="px-3 py-1 bg-orange-600 text-white border-0">
                     <BadgeIcon className="h-3 w-3 mr-1" />
-                    超值優惠
+                    經濟實惠
                   </Badge>
                 </div>
                 
                 <div className="space-y-4">
                   <div className="flex items-center justify-between">
-                    <div className="p-3 rounded-full bg-gradient-to-r from-blue-600 to-green-600 shadow-lg">
+                    <div className="p-3 rounded-full bg-orange-600 shadow-lg">
                       <Zap className="h-6 w-6 text-white" />
                     </div>
-                    <Badge variant="outline" className="bg-blue-100 text-blue-700 border-blue-300">
+                    <Badge variant="outline" className="bg-orange-100 text-orange-700 border-orange-300">
                       Standard
                     </Badge>
                   </div>
                   
                   <div>
-                    <h3 className="text-xl font-bold text-foreground">快速經濟</h3>
+                    <h3 className="text-xl font-bold text-foreground">標準品質</h3>
                     <p className="text-sm text-muted-foreground mt-1">
-                      高性價比，日常使用首選
+                      適合測試和一般用途
                     </p>
                   </div>
                   
@@ -175,36 +175,31 @@ export function FaceSwapForm() {
                   
                   <div className="space-y-2">
                     <div className="flex items-center gap-2 text-sm">
-                      <Award className="h-4 w-4 text-blue-600" />
+                      <Award className="h-4 w-4 text-orange-600" />
                       <span>高清品質輸出</span>
                     </div>
                     <div className="flex items-center gap-2 text-sm">
-                      <TrendingUp className="h-4 w-4 text-blue-600" />
-                      <span>95% 滿意度</span>
+                      <TrendingUp className="h-4 w-4 text-orange-600" />
+                      <span>95% 精確度</span>
                     </div>
                     <div className="flex items-center gap-2 text-sm">
-                      <Zap className="h-4 w-4 text-blue-600" />
-                      <span>39 秒快速完成</span>
+                      <Zap className="h-4 w-4 text-orange-600" />
+                      <span>39 秒處理</span>
                     </div>
                   </div>
                   
                   <div className="pt-4 space-y-2">
                     <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-2">
-                        <span className="text-lg text-gray-400 line-through">
-                          $0.01
-                        </span>
-                        <span className="text-2xl font-bold text-blue-600">
-                          ${REPLICATE_MODELS['codeplugtech/face-swap'].price}
-                        </span>
-                      </div>
-                      <span className="text-sm text-muted-foreground">每次</span>
+                      <span className="text-2xl font-bold text-orange-600">
+                        ${REPLICATE_MODELS['codeplugtech/face-swap'].price}
+                      </span>
+                      <span className="text-sm text-muted-foreground">每次處理</span>
                     </div>
-                    <div className="text-xs text-red-600 font-medium">
-                      節省 60% 費用！
+                    <div className="text-xs text-orange-600 font-medium">
+                      成本效益最佳選擇
                     </div>
                     {selectedQuality === 'standard' && (
-                      <div className="text-xs text-green-600 font-medium animate-pulse">
+                      <div className="text-xs text-green-600 font-medium">
                         ✓ 已選擇此方案
                       </div>
                     )}
@@ -243,33 +238,33 @@ export function FaceSwapForm() {
 
       {/* 處理狀態 */}
       {isLoading && (
-        <Card className="p-8 bg-gradient-to-br from-purple-50 to-pink-50 border-purple-200">
+        <Card className="p-8 bg-blue-50/50 border-blue-200">
           <div className="space-y-6">
             <div className="text-center">
-              <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-r from-purple-600 to-pink-600 mb-4">
-                <Sparkles className="h-8 w-8 text-white animate-spin" />
+              <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-blue-600 mb-4">
+                <Settings className="h-8 w-8 text-white animate-spin" />
               </div>
-              <h3 className="text-xl font-bold mb-2">正在施展 AI 魔法 ✨</h3>
+              <h3 className="text-xl font-bold mb-2">正在處理您的內容</h3>
             </div>
             <div className="space-y-2">
               <div className="flex items-center justify-between">
                 <span className="text-sm font-medium">處理進度</span>
-                <span className="text-sm font-bold text-purple-600">{progress}%</span>
+                <span className="text-sm font-bold text-blue-600">{progress}%</span>
               </div>
-              <Progress value={progress} className="h-3 bg-purple-100" />
+              <Progress value={progress} className="h-3 bg-blue-100" />
             </div>
             <div className="text-center space-y-1">
               <p className="text-sm text-muted-foreground">
-                使用 <span className="font-medium text-purple-600">{selectedModel.name}</span> 處理中
+                使用 <span className="font-medium text-blue-600">{selectedModel.name}</span> 處理中
               </p>
               <p className="text-xs text-muted-foreground">
                 預計還需 {selectedModel.processingTime}
               </p>
             </div>
             <div className="flex justify-center gap-2">
-              <div className="w-2 h-2 bg-purple-600 rounded-full animate-bounce" style={{animationDelay: '0ms'}} />
-              <div className="w-2 h-2 bg-purple-600 rounded-full animate-bounce" style={{animationDelay: '150ms'}} />
-              <div className="w-2 h-2 bg-purple-600 rounded-full animate-bounce" style={{animationDelay: '300ms'}} />
+              <div className="w-2 h-2 bg-blue-600 rounded-full animate-bounce" style={{animationDelay: '0ms'}} />
+              <div className="w-2 h-2 bg-blue-600 rounded-full animate-bounce" style={{animationDelay: '150ms'}} />
+              <div className="w-2 h-2 bg-blue-600 rounded-full animate-bounce" style={{animationDelay: '300ms'}} />
             </div>
           </div>
         </Card>
@@ -287,18 +282,18 @@ export function FaceSwapForm() {
         <Button
           onClick={handleSwap}
           disabled={!canStartSwap}
-          className="flex-1 h-14 text-lg bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 shadow-xl hover:shadow-2xl transition-all transform hover:-translate-y-1"
+          className="flex-1 h-14 text-lg bg-blue-600 hover:bg-blue-700 shadow-lg hover:shadow-xl transition-all"
           size="lg"
         >
           {isLoading ? (
             <>
-              <Sparkles className="mr-2 h-5 w-5 animate-spin" />
-              正在施展魔法...
+              <Settings className="mr-2 h-5 w-5 animate-spin" />
+              正在處理中...
             </>
           ) : (
             <>
-              <Sparkles className="mr-2 h-5 w-5 animate-pulse" />
-              立即開始換臉
+              <Settings className="mr-2 h-5 w-5" />
+              開始處理
             </>
           )}
         </Button>
@@ -308,7 +303,7 @@ export function FaceSwapForm() {
             onClick={handleReset}
             variant="outline"
             size="lg"
-            className="h-14 px-8 hover:bg-gradient-to-r hover:from-gray-50 hover:to-gray-100"
+            className="h-14 px-8 hover:bg-slate-50"
           >
             <ArrowRight className="mr-2 h-5 w-5 rotate-180" />
             重新開始

@@ -1,9 +1,45 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { auth } from '@/auth';
 import { ReplicateService } from '@/lib/replicate';
 import { DEFAULT_IMAGE_MODEL, ECONOMY_IMAGE_MODEL } from '@/config/replicate';
+import { usageTracker } from '@/lib/usage-tracker';
 
 export async function POST(request: NextRequest) {
   try {
+    // 檢查用戶身份驗證
+    const session = await auth();
+    
+    if (!session?.user) {
+      return NextResponse.json(
+        { error: '請先登入才能使用此服務' },
+        { status: 401 }
+      );
+    }
+
+    // 檢查使用量限制
+    const usageCheck = await usageTracker.checkUsageLimit(session.user.id);
+    
+    if (!usageCheck.canUse) {
+      if (usageCheck.currentUsage >= usageCheck.limit) {
+        return NextResponse.json(
+          { 
+            error: '已達到本月使用上限',
+            details: {
+              currentUsage: usageCheck.currentUsage,
+              limit: usageCheck.limit,
+              plan: usageCheck.plan
+            }
+          },
+          { status: 429 }
+        );
+      }
+      
+      return NextResponse.json(
+        { error: '訂閱狀態異常，請檢查您的訂閱方案' },
+        { status: 403 }
+      );
+    }
+
     const formData = await request.formData();
     
     const sourceImage = formData.get('sourceImage') as File;
@@ -32,12 +68,20 @@ export async function POST(request: NextRequest) {
       targetImageUrl
     );
 
+    // 記錄使用量
+    await usageTracker.trackUsage(session.user.id, 'face_swap', 1);
+
     return NextResponse.json({
       success: true,
       predictionId: prediction.id,
       status: prediction.status,
       model,
       estimatedTime: getEstimatedTime(model),
+      usage: {
+        current: usageCheck.currentUsage + 1,
+        limit: usageCheck.limit,
+        remaining: usageCheck.limit - usageCheck.currentUsage - 1
+      }
     });
 
   } catch (error) {

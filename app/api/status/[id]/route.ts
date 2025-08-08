@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { auth } from '@/auth';
 import { ReplicateService } from '@/lib/replicate';
 
 export async function GET(
@@ -6,6 +7,16 @@ export async function GET(
   context: { params: Promise<{ id: string }> }
 ) {
   try {
+    // 檢查用戶身份驗證
+    const session = await auth();
+    
+    if (!session?.user) {
+      return NextResponse.json(
+        { error: '請先登入' },
+        { status: 401 }
+      );
+    }
+
     const { id } = await context.params;
     
     if (!id) {
